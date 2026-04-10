@@ -21,13 +21,13 @@ authRouter.get('/login', (req, res, next) => {
 });
 
 //called by Google after Authentication process
-authRouter.get('/google/callback', passport.authenticate('google', { failureRedirect: '/fail', session: false }), (req, res) => {
+authRouter.get('/google/callback', passport.authenticate('google', { failureRedirect: 'https://legendary-client.vercel.app/index.html', session: false }), (req, res) => {
   //the req.user object will contain the google profile object
   console.log(req.user);
   //googleId, email, name, avatar
   console.log(req.query.state);
   const decoded = JSON.parse(Buffer.from(req.query.state, 'base64').toString());
-  let redirectUrl = decoded.redirect_url || 'http://localhost:9022/private.html';
+  let redirectUrl = decoded.redirect_url || 'https://legendary-client.vercel.app/private.html';
 
   //create a token with the user profile info to send back to the browser
   //It could be just the googleId if you want
